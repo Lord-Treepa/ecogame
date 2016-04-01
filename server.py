@@ -9,12 +9,15 @@ def conHandler(con):
 def interpMain(id, password, command):
 	#Credential Checker
 	if userAuth(id, userGet()[id]):
-		print "Hi"
+		userAuthV = True
 	else:
         	return "Bad credentials!"
+	if command != "":
+		userAuthV = True
+	else:
+		return "Bad command!"
 	command = commandSplitter(command)
-	print command
-	return "Hi"
+	return command
 #User Authentication
 def userAuth(id, password):
 	try:
@@ -54,13 +57,20 @@ def commandSplitter(command):
 	retcmd = []
 	#Command Splitter Sub Function
 	def whileSplitter(i, command, retcmd):
-		c = ""
 		clen = len(command) - 1
 		cmdar = ""
-		while c != " " and i <= clen:
-			cmdar = cmdar + c
+		j = True
+		while j:
+			cmdar = cmdar + command[i]
 			c = command[i]
 			i = i + 1
+			try:
+				if command[i] != " " and i <= clen:
+					j = True
+				else:
+					j = False
+			except:
+				j = False
 		retcmd.append(cmdar)
 		if i > clen:
 			return retcmd
@@ -68,4 +78,4 @@ def commandSplitter(command):
 			i = i + 1
 			return whileSplitter(i, command, retcmd)
 	return whileSplitter(i, command, retcmd)
-print interpMain("Treepa", "qwert", "Ima TWee!")
+print interpMain("Treepa", "qwert", "stock buy nzx50 6700")
