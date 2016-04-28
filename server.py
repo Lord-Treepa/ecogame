@@ -17,7 +17,10 @@ def interpMain(id, password, command):
 	else:
 		return "Bad command!"
 	command = commandSplitter(command)
-	return command
+	if command[0] == "stock":
+		interpStock(command)
+	else:
+		return command
 #User Authentication
 def userAuth(id, password):
 	try:
@@ -78,4 +81,16 @@ def commandSplitter(command):
 			i = i + 1
 			return whileSplitter(i, command, retcmd)
 	return whileSplitter(i, command, retcmd)
+
+#Stock Command Interpreter
+def interpStock(command):
+	cmlen = 0
+	for cmd in command:
+		cmlen = cmlen + 1
+	if cmlen != 3 or cmlen != 4:
+		return False
+	elif comand[1] != "buy" or command[1] != "sell":
+		return False
+
+#Main Code
 print interpMain("Treepa", "qwert", "stock buy nzx50 6700")
